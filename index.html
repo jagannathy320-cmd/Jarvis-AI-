@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<title>Jarvis AI</title>
+<style>
+body{
+  background:#020617;
+  color:#e5e7eb;
+  font-family:Arial;
+  text-align:center;
+  padding-top:40px;
+}
+button{
+  padding:15px 25px;
+  font-size:18px;
+  border:none;
+  border-radius:8px;
+  background:#22c55e;
+}
+#text{
+  margin-top:25px;
+  font-size:20px;
+}
+</style>
+</head>
+<body>
+
+<h2>🤖 JARVIS</h2>
+<button onclick="listen()">🎤 बोलो</button>
+<div id="text">यहाँ जवाब आएगा</div>
+
+<script>
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+const rec = new SR();
+rec.lang = 'hi-IN';
+
+function listen(){
+  rec.start();
+}
+
+rec.onresult = (e)=>{
+  let voice = e.results[0][0].transcript;
+  document.getElementById("text").innerText = "आपने कहा: " + voice;
+  speak("आपने कहा " + voice);
+};
+
+function speak(msg){
+  let s = new SpeechSynthesisUtterance(msg);
+  s.lang = 'hi-IN';
+  speechSynthesis.speak(s);
+}
+</script>
+
+</body>
+</html>
